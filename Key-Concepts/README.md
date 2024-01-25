@@ -108,4 +108,5 @@ option(USE_JEPG "Do you want to you the jpeg library? ")
 ```CMake 
 set(USE_JPEG ON CACHE BOOL "include jpeg support?")
 ```
-    - Variable types include BOOL, PATH, FILEPATH and STRING
+> Variable types include BOOL, PATH, FILEPATH and STRING
+
