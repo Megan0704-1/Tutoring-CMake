@@ -78,4 +78,32 @@ target_link_libraries(go foo)
         - It retuens a list of what list files are currently being processed.
     2. Pending for descoveries
 
+## Variables
+- When you set a variable that is visiable to the current CMakeListst.txt, any subdirectories' CMakeLists.txt and functions or macros that are invoked can access the variable.
+- Any new variables created in the child scope, or changes made to exisiting variables will not impact the parent scope.\
+- for instance
+```CMake
+function (foo)
+    message(${TEST})
+    set(test 2 PARENT_SCOPE)
+    message(${TEST}) # test will be **1**
+endfunction()
 
+# start here
+set(TEST 1)
+foo()
+message(${TEST}) # test will be 2
+```
+> In some cases, I might want to set a variable from the CMake UI. -> variables must be a cache entry.
+> WHenever CMaje is run, it produces a cache file in the binary directory (build/). The purpose of this cache is to store the user's selection and choices, so that if they run CMake again, they won't need to reenter the selection.
+- for instance
+```CMake
+option(USE_JEPG "Do you want to you the jpeg library? ")
+```
+- The above command would create a variable called `USE_JPEG` and put it into the cache.
+- There are ore commands you can use to create variable in CMake cache.
+    - option
+    - find_file
+    - set
+    - ```set(USE_JPEG ON CACHE BOOL "include jpeg support?")```
+    - Variable types include BOOL, PATH, FILEPATH and STRING
